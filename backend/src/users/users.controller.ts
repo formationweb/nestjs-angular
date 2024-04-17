@@ -1,13 +1,17 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, Param, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, HttpCode, Param, Post, Query } from "@nestjs/common";
 import { ErrorMessage } from "../core/enums/error";
+import { PostsService } from "../posts/posts.service";
 import { UsersService } from "./users.service";
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) { }
+    constructor(
+        private usersService: UsersService,
+        private postsService: PostsService
+    ) { }
 
     @Get()
-    findAll() {
+    findAll(@Query('search') search: string) {
         return this.usersService.findAll()
     }
 
@@ -17,6 +21,11 @@ export class UsersController {
             throw new BadRequestException(ErrorMessage.BadId)
         }
         return this.usersService.findOne(+userId)
+    }
+
+    @Get(':id/posts')
+    findPosts(@Param('id') userId: string) {
+        return this.postsService.findPostsOfUser(+userId)
     }
 
     @Post()
