@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post, Query, UsePipes } from "@nestjs/common";
 import { ErrorMessage } from "../core/enums/error";
-=======
-import { Body, Controller, Get, HttpCode, Param, Post, Query, UsePipes } from "@nestjs/common";
->>>>>>> b41b26714d9d86a2dcf39c1540161e623b5c5489
 import { CustomIntPipe } from "../core/pipes/custom-int.pipe";
 import { EmailValidationPipe } from "../core/pipes/email.pipe";
 import { PostsService } from "../posts/posts.service";
