@@ -13,7 +13,7 @@ import { PostsService } from './posts.service';
   imports: [
     SequelizeModule.forFeature([Post, User]),
     JwtModule.register({
-      secret: 'toto',
+      secret: process.env.JWT_SECRET_TOKEN,
     }),
   ],
 })

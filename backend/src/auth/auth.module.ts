@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   controllers: [AuthController],
   providers: [AuthService, UsersService],
   imports: [SequelizeModule.forFeature([ User ]), JwtModule.register({
-    secret: 'toto'
+    secret: process.env.JWT_SECRET_TOKEN
   })]
 })
 export class AuthModule {}

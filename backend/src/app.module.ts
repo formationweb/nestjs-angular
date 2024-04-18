@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { databaseConfig } from './database/database.config';
-import { MeModule } from './me/me.module';
 import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 
@@ -13,7 +13,7 @@ import { UsersModule } from './users/users.module';
     PostsModule,
     SequelizeModule.forRoot(databaseConfig),
     AuthModule,
-    MeModule,
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
 })
