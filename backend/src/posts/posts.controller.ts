@@ -1,5 +1,7 @@
-import { Body, Controller, Get, HttpCode, NotFoundException, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, NotFoundException, Param, Post, Query, Req, UseGuards } from "@nestjs/common";
+import type { Request } from 'express';
 import { ErrorMessage } from "../core/enums/error";
+import { AuthGuard } from "../core/guards/auth.guard";
 import { CustomIntPipe } from "../core/pipes/custom-int.pipe";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { Post as PostEntity } from "./entities/post.entity";
@@ -16,10 +18,11 @@ export class PostsController {
 
     @Post()
     @HttpCode(201)
-    create(@Body() payload: CreatePostDto): Promise<PostEntity> {
+    @UseGuards(AuthGuard)
+    create(@Body() payload: CreatePostDto, @Req() req: Request): Promise<PostEntity> {
         return this.postsService.create({
             ...payload,
-            userId: 1
+            userId: req['user'].id
         })
     }
 
