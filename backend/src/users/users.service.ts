@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Transaction } from 'sequelize';
 import { Post } from '../posts/entities/post.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -30,6 +31,11 @@ export class UsersService {
         email
       }
     })
+  }
+
+  async update(id: number, payload: UpdateUserDto): Promise<User> {
+    const user = await this.findOne(id)
+    return user.update(payload)
   }
 
   create(payload: CreateUserDto): Promise<User> {
