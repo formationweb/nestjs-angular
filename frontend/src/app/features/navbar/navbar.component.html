@@ -1,4 +1,8 @@
 <div>
     <label>Recherche</label>
     <input type="text" [formControl]="search">
+
+    <div *ngFor="let user of users$ | async">
+        {{ user.name }}
+    </div>
 </div>
