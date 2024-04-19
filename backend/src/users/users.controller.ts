@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post, Query, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post, Put, Query, UsePipes } from "@nestjs/common";
 import { ErrorMessage } from "../core/enums/error";
 import { CustomIntPipe } from "../core/pipes/custom-int.pipe";
 import { EmailValidationPipe } from "../core/pipes/email.pipe";
 import { PostsService } from "../posts/posts.service";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user-dto";
 import { User } from "./entities/user.entity";
 import { UsersService } from "./users.service";
 
@@ -33,7 +34,11 @@ export class UsersController {
     //     return this.postsService.findPostsOfUser(+userId)
     // }
 
-    // @Put
+    @Put() 
+    update(@Param('id', CustomIntPipe) userId: number, @Body() payload: UpdateUserDto): Promise<User> {
+        return this.usersService.update(userId, payload)
+    }
+
     @Post()
     @UsePipes(EmailValidationPipe)
     @HttpCode(201)

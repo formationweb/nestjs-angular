@@ -1,5 +1,5 @@
 <ul>
     <li *ngFor="let user of users | async">
-        {{ user.email }}
+        {{ user.email }} <button [routerLink]="['user', user.id]">Modifier</button>
     </li>
 </ul>

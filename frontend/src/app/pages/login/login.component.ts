@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { domainValidator } from '../../core/validators/domain.validator';
 import { emailExistsValidator } from '../../core/validators/email-exists.validator';
@@ -11,7 +11,7 @@ import { emailExistsValidator } from '../../core/validators/email-exists.validat
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   propEmail = new FormControl<string>('', [
     Validators.required,
     Validators.email,
@@ -26,6 +26,12 @@ export class LoginComponent {
     password: this.propPass
   })
   submitted = false
+
+  ngOnInit(): void {
+      setTimeout(() => {
+        this.propEmail.setValue('test')
+      }, 1000)
+  }
 
   login() {
     this.submitted = true
