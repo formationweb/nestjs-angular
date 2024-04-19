@@ -34,7 +34,7 @@ export class UsersController {
     //     return this.postsService.findPostsOfUser(+userId)
     // }
 
-    @Put() 
+    @Put(':id') 
     update(@Param('id', CustomIntPipe) userId: number, @Body() payload: UpdateUserDto): Promise<User> {
         return this.usersService.update(userId, payload)
     }

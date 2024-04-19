@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   userService = inject(UsersService)
 
   ngOnInit(): void {
+      this.userService.getAll().subscribe()
       this.search.valueChanges
       .pipe(
         filter(str => str.length >= 3),

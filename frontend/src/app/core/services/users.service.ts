@@ -22,6 +22,10 @@ export class UsersService {
     this._search$.next(str); // mutation
   }
 
+  get(id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/' + id)
+  }
+
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.url).pipe(
       tap((users) => {
