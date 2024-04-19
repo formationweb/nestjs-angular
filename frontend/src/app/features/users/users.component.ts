@@ -22,10 +22,13 @@ export class UsersComponent implements OnInit, OnDestroy {
                     this.users = users
                 },
                 complete: () => {
-                    console.log('finish')
+                    //console.log('finish')
                 }
             })
         }) 
+        this.userService.search$.subscribe((str) => {
+            console.log(str)
+        })
     }
 
     ngOnDestroy(): void {
