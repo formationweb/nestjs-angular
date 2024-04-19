@@ -1,1 +1,31 @@
-<p>login works!</p>
+<h1>Connexion</h1>
+
+<form (ngSubmit)="login()" [formGroup]="form">
+
+    <div *ngIf="form.invalid && submitted">
+        Le formulaire invalide
+        <div *ngIf="propEmail.hasError('required')">
+            Le champ est requis
+        </div>
+        <div *ngIf="propEmail.hasError('email')">
+            L'email est invalide
+        </div>
+        <div *ngIf="propEmail.hasError('minlength')">
+            {{ propEmail.getError('minlength').requiredLength }} caractères min.
+        </div>
+        <div *ngIf="propEmail.hasError('domain')">
+            {{ propEmail.getError('domain') }} est interdit !
+        </div>
+        <div *ngIf="propEmail.hasError('emailExists')">
+            Email déjà existant !
+        </div>
+    </div>
+
+    <label>Email</label>
+    <input type="text" [formControl]="propEmail">
+
+    <label>Mot de passe</label>
+    <input type="password" [formControl]="propPass">
+
+    <button>Se connecter</button>
+</form>
