@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
@@ -14,6 +15,7 @@ export const routes: Routes = [
     },
     {
         path: 'user/:id',
-        component: UserEditComponent
+        component: UserEditComponent,
+        canActivate: [authGuard]
     }
 ];

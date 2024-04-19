@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({
@@ -14,6 +14,11 @@ export class UsersService {
 
   private _users$: BehaviorSubject<User[]> = new BehaviorSubject([] as User[]);
   readonly users$: Observable<User[]> = this._users$.asObservable();
+
+  usersFiltered$: Observable<User[]> = combineLatest([ this.search$, this.users$ ])
+    .pipe(
+      map(([search, users]) => users.filter(user => user.name.includes(search)))
+    )
 
   //constructor(private http: HttpClient) {}
   private http = inject(HttpClient);
@@ -32,5 +37,20 @@ export class UsersService {
         this._users$.next(users);
       })
     );
+  }
+
+  update(id: number, payload: Omit<User, 'id'>): Observable<User> {
+    return this.http.put<User>(this.url + '/' + id, payload)
+      .pipe(
+        tap((user: User) => {
+          const usersUpdated = this._users$.value.map(currentUser => {
+            if (currentUser.id == id) {
+                return user
+            }
+            return currentUser
+          })
+          this._users$.next(usersUpdated)
+        })
+      )
   }
 }

@@ -1,4 +1,3 @@
-import { combineLatest, interval, map } from 'rxjs'
 
 /*
 const ob$ = of(1, 2, 3)
@@ -32,9 +31,9 @@ ob$.subscribe(console.log)
 //             console.log('---deuxième interval', nb2)
 //         })
 
-const ob$1 = interval(1000)
-const ob$2 = interval(2500).pipe(map(() => Math.random()))
+// const ob$1 = interval(1000)
+// const ob$2 = interval(2500).pipe(map(() => Math.random()))
 
-combineLatest([ ob$1, ob$2 ]).subscribe((val) => {
-    console.log(val)
-})
+// combineLatest([ ob$1, ob$2 ]).subscribe((val) => {
+//     console.log(val)
+// })

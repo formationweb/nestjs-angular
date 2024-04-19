@@ -13,16 +13,14 @@ import { UsersService } from "../../core/services/users.service";
 })
 export class UsersComponent implements OnInit, OnDestroy {
     private userService = inject(UsersService)
-    users: Observable<User[]> = this.userService.users$
+    users: Observable<User[]> = this.userService.usersFiltered$
     subscription!: Subscription
 
     ngOnInit(): void {
        // this.subscription = interval(1000).subscribe((nb) => {
             this.userService.getAll().subscribe()
        // }) 
-        this.userService.search$.subscribe((str) => {
-            console.log(str)
-        })
+        
     }
 
     ngOnDestroy(): void {
