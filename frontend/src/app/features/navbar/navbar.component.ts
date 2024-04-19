@@ -37,8 +37,6 @@ export class NavbarComponent implements OnInit {
          this.userService.setSearch(str) // action
       })
 
-      
-
       setInterval(() => {
         this.title.set(''+Math.random())
       }, 1000)
